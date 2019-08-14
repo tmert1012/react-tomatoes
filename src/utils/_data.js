@@ -1,6 +1,24 @@
 export const days = {
-    monday: {
+    mon: {
         title: 'Monday'
+    },
+    tues: {
+        title: 'Tuesday'
+    },
+    wed: {
+        title: 'Wednesday'
+    },
+    thurs: {
+        title: 'Thursday'
+    },
+    fri: {
+        title: 'Friday'
+    },
+    sat: {
+        title: 'Saturday'
+    },
+    sun: {
+        title: 'Sunday'
     }
 }
 
@@ -23,6 +41,21 @@ export const options = {
     },
     spray: {
         title: 'Spray',
-        description: 'Spray plants with fungicide or insecticide.'
+        description: 'Spray plants with fungicide or insecticide.',
     },
+}
+
+export const weather = {
+    sunny: {
+        title: 'Sunny',
+        icon: 'wi-day-sunny.svg',
+    },
+    rain: {
+        title: 'Rain',
+        icon: 'wi-day-rain.svg',
+    },
+    overcast: {
+        title: 'Overcast',
+        icon: 'wi-cloudy.svg',
+    }
 }

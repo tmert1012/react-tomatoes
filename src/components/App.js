@@ -1,38 +1,39 @@
 import React, { Component } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { CardDeck } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Day from './Day'
 import { handleInitialData } from "../actions/shared";
+import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
   componentDidMount() {
-    this.params.dispatch(handleInitialData)
+    this.props.dispatch(handleInitialData())
   }
 
   render() {
+    const { days, loading } = this.props
+
     return (
-      <div className="App">
-        <Container>
-          <Row>
-            <Col>1 of 2</Col>
-            <Col>2 of 2</Col>
-          </Row>
-          <Row>
-            <Col>1 of 3</Col>
-            <Col>2 of 3</Col>
-            <Col>3 of 3</Col>
-          </Row>
-        </Container>
-      </div>
+        <div>
+          <LoadingBar />
+          <CardDeck>
+            { loading
+                ? null
+                : Object.keys(days).map((key) => (
+                      <Day day={days[key]} key={key} />
+                  ))
+            }
+          </CardDeck>
+        </div>
     )
   }
 
 }
 
-function mapStateToProps({ days, options }) {
+function mapStateToProps({ days, loadingBar }) {
   return {
     days,
-    options,
+    loading: loadingBar.default === 1,
   }
 }
 
