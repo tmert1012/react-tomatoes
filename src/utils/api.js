@@ -1,14 +1,16 @@
-import { days, options, weather } from './_data'
+import { days, options, weather, season } from './_data'
 
 export function getInitialData() {
     return Promise.all([
         getDays(),
         getOptions(),
         getWeather(),
-    ]).then(([days, options, weather]) => ({
+        getSeason(),
+    ]).then(([days, options, weather, season]) => ({
         days,
         options,
-        weather
+        weather,
+        season
     }))
 }
 
@@ -27,5 +29,11 @@ function getOptions () {
 function getWeather () {
     return new Promise((res, rej) => {
         setTimeout(() => res({...weather}), 1000)
+    })
+}
+
+function getSeason () {
+    return new Promise((res, rej) => {
+        setTimeout(() => res({...season}), 1000)
     })
 }

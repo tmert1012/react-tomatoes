@@ -1,23 +1,44 @@
 import React, { Component } from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import WeatherIcon from 'react-icons-weather';
 
 class Day extends Component {
+    state = {
+       selectedOptionId: '',
+    }
+
+    optionSelected = (e, optionId) => {
+        this.setState(() => ({
+            selectedOptionId: optionId,
+        }))
+    }
 
     render() {
-        const { day, forecast } = this.props
+        const { day, forecast, options } = this.props
+        const { selectedOptionId } = this.state
 
         return (
             <Card style={{ width: '18rem' }}>
+                <Card.Header>{day.title}</Card.Header>
                 <Card.Body>
-                    <Card.Img variant="top" src={`../icons/${forecast.icon}`} style={{fill: "#00B1E1"}}/>
-                    <WeatherIcon name="owm" iconId="200" flip="horizontal" rotate="90" style={{color: "#00B1E1", width: '100px'}} />
-
-                    <Card.Title>{day.title}</Card.Title>
-                    <Card.Text>
-                        {forecast.title}
-                    </Card.Text>
+                    <Card.Img variant="top" src={`../icons/${forecast.icon}`} />
+                    <Card.Title>{forecast.title}</Card.Title>
+                    <ListGroup>
+                        {Object.keys(options).map((key) => (
+                            <OverlayTrigger
+                                key={key}
+                                delay={1000}
+                                overlay={<Tooltip>{options[key].description}</Tooltip>}>
+                                    <ListGroup.Item
+                                        eventKey={key}
+                                        active={ selectedOptionId === options[key].id ? true : false }
+                                        action
+                                        onClick={(e) => this.optionSelected(e, options[key].id)}>
+                                            {options[key].title}
+                                    </ListGroup.Item>
+                            </OverlayTrigger>
+                        ))}
+                    </ListGroup>
                 </Card.Body>
             </Card>
         )
@@ -25,13 +46,14 @@ class Day extends Component {
 
 }
 
-function mapStateToProps({ weather }, { day }) {
-    const keys = Object.keys(weather)
-    const randKey = keys[Math.floor(Math.random()*keys.length)]
+function mapStateToProps({ weather, options }, { day }) {
+    const weatherKeys = Object.keys(weather)
+    const randKey = weatherKeys[Math.floor(Math.random() * weatherKeys.length)]
 
     return {
         day,
-        forecast: weather[randKey]
+        forecast: weather[randKey],
+        options,
     }
 }
 
