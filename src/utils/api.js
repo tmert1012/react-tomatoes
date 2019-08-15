@@ -37,3 +37,27 @@ function getSeason () {
         setTimeout(() => res({...season}), 1000)
     })
 }
+
+export function saveSeason(weekId, dayId, weatherId, optionId) {
+    console.log(`saveSeason(${weekId}, ${dayId}, ${weatherId}, ${optionId})`)
+
+    return new Promise((res, rej) => {
+        if (!season[weekId])
+            season[weekId] = {
+                weekId,
+                schedule: {},
+            }
+
+        season[weekId] = {
+            weekId,
+            schedule: {
+                ...season[weekId].schedule,
+                [dayId]: {dayId, weatherId, optionId}
+            }
+        }
+
+        console.log(season)
+        res()
+    })
+
+}

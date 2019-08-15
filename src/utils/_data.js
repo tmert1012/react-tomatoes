@@ -1,31 +1,31 @@
 export const days = {
     mon: {
         id: 'mon',
-        title: 'Monday'
+        title: 'Monday',
     },
     tues: {
         id: 'tues',
-        title: 'Tuesday'
+        title: 'Tuesday',
     },
     wed: {
         id: 'wed',
-        title: 'Wednesday'
+        title: 'Wednesday',
     },
     thurs: {
         id: 'thurs',
-        title: 'Thursday'
+        title: 'Thursday',
     },
     fri: {
         id: 'fri',
-        title: 'Friday'
+        title: 'Friday',
     },
     sat: {
         id: 'sat',
-        title: 'Saturday'
+        title: 'Saturday',
     },
     sun: {
         id: 'sun',
-        title: 'Sunday'
+        title: 'Sunday',
     }
 }
 
@@ -75,16 +75,7 @@ export const weather = {
     }
 }
 
-/*
- sample season
-     {
-        week: 1,
-        schedule: [
-            { dayId: 'mon', weather: 'sunny', optionId: 'spray' },
-            { dayId: 'tues', weather: 'rain', optionId: 'trellis' }
-        ]
-    },
- */
-export let season = []
+export let season = {}
+
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card, ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { handleUpdateSeason } from '../actions/season'
 
 class Day extends Component {
     state = {
@@ -8,9 +9,13 @@ class Day extends Component {
     }
 
     optionSelected = (e, optionId) => {
+        const { day, forecast } = this.props
+
         this.setState(() => ({
             selectedOptionId: optionId,
         }))
+
+        this.props.dispatch(handleUpdateSeason(1, day.id, forecast.id, optionId))
     }
 
     render() {
