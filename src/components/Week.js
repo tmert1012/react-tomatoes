@@ -22,7 +22,6 @@ class Week extends Component {
                                     dayId={dayId}
                                     key={dayId}
                                     weatherId={schedule[dayId].weatherId}
-
                                 />
                             )) }
                         </CardDeck>

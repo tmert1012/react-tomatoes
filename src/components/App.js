@@ -4,11 +4,23 @@ import { handleInitialData } from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Header from './Header'
 import Week from "./Week"
+import GameOver from './GameOver'
 
 class App extends Component {
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
+    }
+
+    checkGameOver() {
+        const { season, weekId } = this.props
+
+        if (season[weekId] && season[weekId].schedule) {
+            const schedule = season[weekId].schedule
+            return Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '').length === 0
+        }
+
+        return false
     }
 
     render() {
@@ -22,7 +34,7 @@ class App extends Component {
                     :
                     <div>
                         <Header />
-                        <Week />
+                        { this.checkGameOver() ? <GameOver /> : <Week /> }
                     </div>
                 }
             </div>
@@ -31,8 +43,10 @@ class App extends Component {
 
 }
 
-function mapStateToProps({ loadingBar }) {
+function mapStateToProps({ season, currentWeek, loadingBar }) {
     return {
+        season,
+        weekId: currentWeek.weekId,
         loading: loadingBar.default === 1,
     }
 }
