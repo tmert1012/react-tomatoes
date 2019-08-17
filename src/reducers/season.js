@@ -1,4 +1,4 @@
-import { RECEIVE_SEASON, UPDATE_SEASON } from '../actions/season'
+import { RECEIVE_SEASON, UPDATE_DAY_OPTION } from '../actions/season'
 
 export default function season(state = {}, action) {
 
@@ -8,26 +8,24 @@ export default function season(state = {}, action) {
                 ...state,
                 ...action.season
             }
-        case UPDATE_SEASON:
-            const { weekId, dayId, weatherId, optionId } = action
-
-            let prevSchedule = {}
-            if (state.season)
-                prevSchedule = state.season[weekId].schedule
+        case UPDATE_DAY_OPTION: {
+            const {weekId, dayId, optionId} = action
 
             return {
                 ...state,
-                season: {
-                    ...state.season,
-                    [weekId]: {
-                        weekId,
-                        schedule: {
-                            ...prevSchedule,
-                            [dayId]: {dayId, weatherId, optionId},
-                        }
+                [weekId]: {
+                    ...state[weekId],
+                    schedule: {
+                        ...state[weekId].schedule,
+                        [dayId]: {
+                            ...state[weekId].schedule[dayId],
+                            optionId
+                        },
                     }
                 }
             }
+
+        }
         default:
             return state
     }

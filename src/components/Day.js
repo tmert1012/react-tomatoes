@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, ListGroup, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { handleUpdateSeason } from '../actions/season'
+import { handleUpdateDayOption } from '../actions/season'
 
 class Day extends Component {
     state = {
@@ -9,13 +9,13 @@ class Day extends Component {
     }
 
     optionSelected = (e, optionId) => {
-        const { day, forecast } = this.props
+        const { day, weekId } = this.props
 
         this.setState(() => ({
             selectedOptionId: optionId,
         }))
 
-        this.props.dispatch(handleUpdateSeason(1, day.id, forecast.id, optionId))
+        this.props.dispatch(handleUpdateDayOption(weekId, day.id, optionId))
     }
 
     render() {
@@ -51,14 +51,13 @@ class Day extends Component {
 
 }
 
-function mapStateToProps({ weather, options }, { day }) {
-    const weatherKeys = Object.keys(weather)
-    const randKey = weatherKeys[Math.floor(Math.random() * weatherKeys.length)]
+function mapStateToProps({ weather, options, days, currentWeek }, { dayId, weatherId }) {
 
     return {
-        day,
-        forecast: weather[randKey],
+        day: days[dayId],
+        forecast: weather[weatherId],
         options,
+        weekId: currentWeek.weekId,
     }
 }
 

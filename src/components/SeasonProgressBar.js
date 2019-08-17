@@ -5,23 +5,22 @@ import { connect } from 'react-redux'
 class SeasonProgressBar extends Component {
 
     render() {
-        const { loading, perc, week } = this.props
+        const { perc, weekId } = this.props
 
         return (
             <div>
-                { week }
-                <ProgressBar striped animated variant="success" now={ loading ? 0 : perc } />
+                { `Week: ${weekId}` }
+                <ProgressBar striped animated variant="success" now={perc} />
             </div>
         )
     }
 
 }
 
-function mapStateToProps({ season, loadingBar }) {
+function mapStateToProps({ season, currentWeek }) {
     return {
-        loading: loadingBar.default === 1,
-        perc: season.length > 0 ? Math.floor(season.length/8 ) : 0,
-        week: season.length > 0 ? season[season.length-1] : null,
+        perc: Math.floor(currentWeek.weekId/Object.keys(season).length*100 ),
+        weekId: currentWeek.weekId,
     }
 }
 

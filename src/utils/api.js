@@ -34,6 +34,27 @@ function getWeather () {
 
 function getSeason () {
     return new Promise((res, rej) => {
+
+        const weatherKeys = Object.keys(weather)
+
+        // each week
+        for (let weekId = 1; weekId <= 8; weekId++) {
+
+            season[weekId] = {
+                weekId,
+                schedule: {}
+            }
+
+            // each day of the week
+            Object.keys(days).forEach((dayId) => {
+                season[weekId].schedule[dayId] = {
+                    dayId,
+                    weatherId: weatherKeys[Math.floor(Math.random() * weatherKeys.length)],
+                    optionId: '',
+                }
+            })
+        }
+
         setTimeout(() => res({...season}), 1000)
     })
 }

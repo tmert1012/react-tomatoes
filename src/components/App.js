@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { CardDeck } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import Day from './Day'
 import { handleInitialData } from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Header from './Header'
-import SeasonProgressBar from "./SeasonProgressBar"
+import Week from "./Week"
 
 class App extends Component {
 
@@ -14,7 +12,7 @@ class App extends Component {
     }
 
     render() {
-        const { days, loading } = this.props
+        const { loading } = this.props
 
         return (
             <div>
@@ -24,12 +22,7 @@ class App extends Component {
                     :
                     <div>
                         <Header />
-                        <SeasonProgressBar />
-                        <CardDeck>
-                            { Object.keys(days).map((key) => (
-                                <Day day={days[key]} key={key} />
-                            )) }
-                        </CardDeck>
+                        <Week />
                     </div>
                 }
             </div>
@@ -38,9 +31,8 @@ class App extends Component {
 
 }
 
-function mapStateToProps({ days, loadingBar }) {
+function mapStateToProps({ loadingBar }) {
     return {
-        days,
         loading: loadingBar.default === 1,
     }
 }

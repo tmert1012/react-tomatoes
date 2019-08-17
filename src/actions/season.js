@@ -1,7 +1,5 @@
-import { saveSeason } from "../utils/api";
-
 export const RECEIVE_SEASON = 'RECEIVE_SEASON'
-export const UPDATE_SEASON = 'UPDATE_SEASON'
+export const UPDATE_DAY_OPTION = 'UPDATE_DAY_OPTION'
 
 export function receiveSeason(season) {
     return {
@@ -10,22 +8,18 @@ export function receiveSeason(season) {
     }
 }
 
-export function updateSeason(weekId, dayId, weatherId, optionId) {
+export function updateDayOption(weekId, dayId, optionId) {
     return {
-        type: UPDATE_SEASON,
+        type: UPDATE_DAY_OPTION,
         weekId,
         dayId,
-        weatherId,
         optionId
     }
 }
 
-export function handleUpdateSeason(weekId, dayId, weatherId, optionId) {
+export function handleUpdateDayOption(weekId, dayId, optionId) {
     return (dispatch) => {
-        return saveSeason(weekId, dayId, weatherId, optionId)
-            .then(() => {
-                dispatch(updateSeason(weekId, dayId, weatherId, optionId))
-            })
+        dispatch(updateDayOption(weekId, dayId, optionId))
     }
 }
 
