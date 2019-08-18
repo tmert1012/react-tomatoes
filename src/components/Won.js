@@ -3,7 +3,7 @@ import { Card, Button, Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import {handleInitialData} from "../actions/shared";
 
-class GameOver extends Component {
+class Won extends Component {
 
     handleClick = () => {
         this.props.dispatch(handleInitialData())
@@ -16,11 +16,11 @@ class GameOver extends Component {
                 <Row className="justify-content-md-center">
                     <Col md="auto">
                         <Card className='text-center' style={{ width: '18rem' }}>
-                            <Card.Header>Game Over!</Card.Header>
+                            <Card.Header>You've Won!</Card.Header>
                             <Card.Body>
-                                <Card.Img variant="top" src={'../icons/dead-plant.png'} />
-                                <Card.Title>Sorry, you've lost your crop.</Card.Title>
-                                <Button onClick={(e) => this.handleClick()} variant="primary">Try Again</Button>
+                                <Card.Img variant="top" src={'../icons/tomato.png'} />
+                                <Card.Title>Congrats, you made it though the season! Enjoy your tomatoes!</Card.Title>
+                                <Button onClick={(e) => this.handleClick()} variant="primary">Play Again</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -31,4 +31,4 @@ class GameOver extends Component {
 
 }
 
-export default connect()(GameOver)
+export default connect()(Won)

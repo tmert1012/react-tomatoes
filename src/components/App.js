@@ -4,27 +4,61 @@ import { handleInitialData } from "../actions/shared"
 import LoadingBar from 'react-redux-loading'
 import Header from './Header'
 import Week from "./Week"
-import GameOver from './GameOver'
+import Failed from './Failed'
+import {receiveCurrentWeek} from "../actions/currentWeek"
+import Won from './Won'
 
 class App extends Component {
+
+    WEEKS_IN_SEASON = 2
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
     }
 
     checkGameOver() {
-        const { season, weekId } = this.props
+        const { season, weekId, days } = this.props
 
         if (season[weekId] && season[weekId].schedule) {
             const schedule = season[weekId].schedule
-            return Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '').length === 0
+
+            // option selected for all seven days
+            const scheduleComplete =  Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '' ).length === 0
+
+            // check weather
+            const weather = Object.keys(days).map( dayId => schedule[dayId].weatherId)
+            console.log(weather)
+
+            // overcast follows a day of rain, fail
+            let overcastFollowsRain = false
+            for (let i = 0; i < weather.length-1; i++)
+                if (weather[i] === 'rain' && weather[i+1] === 'overcast')
+                    overcastFollowsRain = true
+
+            console.log(`weekId: ${weekId}, scheduleComplete: ${scheduleComplete}, overcastFollowsRain: ${overcastFollowsRain}`)
+
+            // game is lost
+            if (scheduleComplete && overcastFollowsRain)
+                return true
+
+            // continue to following week
+            if (scheduleComplete && weekId <= this.WEEKS_IN_SEASON)
+                this.props.dispatch(receiveCurrentWeek( {weekId: weekId+1}))
         }
 
         return false
     }
 
     render() {
-        const { loading } = this.props
+        const { loading, weekId } = this.props
+
+        let component
+        if (this.checkGameOver())
+            component = <Failed />
+        else if (weekId <= this.WEEKS_IN_SEASON)
+            component = <Week />
+        else
+            component = <Won />
 
         return (
             <div>
@@ -34,7 +68,7 @@ class App extends Component {
                     :
                     <div>
                         <Header />
-                        { this.checkGameOver() ? <GameOver /> : <Week /> }
+                        { component }
                     </div>
                 }
             </div>
@@ -43,8 +77,9 @@ class App extends Component {
 
 }
 
-function mapStateToProps({ season, currentWeek, loadingBar }) {
+function mapStateToProps({ days, season, currentWeek, loadingBar }) {
     return {
+        days,
         season,
         weekId: currentWeek.weekId,
         loading: loadingBar.default === 1,
