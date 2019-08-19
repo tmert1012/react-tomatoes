@@ -12,7 +12,7 @@ Have fun, good luck!
 
 [Play it now!](http://web1.apuno.io/react-tomatoes/)
 
-###This project was build with:  
+### This project was build with:  
   
 [Create React App](https://github.com/facebook/create-react-app)   
 [React Bootstrap](https://react-bootstrap.github.io/)  
