@@ -61,17 +61,14 @@ export const weather = {
     sunny: {
         id: 'sunny',
         title: 'Sunny',
-        icon: 'wi-day-sunny.svg',
     },
     rain: {
         id: 'rain',
         title: 'Rain',
-        icon: 'wi-day-rain.svg',
     },
     overcast: {
         id: 'overcast',
         title: 'Overcast',
-        icon: 'wi-cloudy.svg',
     }
 }
 

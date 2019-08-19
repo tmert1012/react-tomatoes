@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import {handleInitialData} from "../actions/shared";
+import DeadPlant from '../icons/dead-plant.png'
 
 class Failed extends Component {
 
@@ -18,7 +19,7 @@ class Failed extends Component {
                         <Card className='text-center' style={{ width: '18rem' }}>
                             <Card.Header>Game Over!</Card.Header>
                             <Card.Body>
-                                <Card.Img variant="top" src={'../icons/dead-plant.png'} />
+                                <Card.Img variant="top" src={DeadPlant} />
                                 <Card.Title>Sorry, you've lost your crop.</Card.Title>
                                 <Button onClick={(e) => this.handleClick()} variant="primary">Try Again</Button>
                             </Card.Body>

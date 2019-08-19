@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Card, OverlayTrigger, Tooltip, Button, ButtonGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { handleUpdateDayOption } from '../actions/season'
+import Overcast from '../icons/wi-cloudy.svg'
+import Sunny from '../icons/wi-day-sunny.svg'
+import Rain from '../icons/wi-day-rain.svg'
 
 class Day extends Component {
     state = {
@@ -24,11 +27,26 @@ class Day extends Component {
         const { day, forecast, options, weekId } = this.props
         const { selectedOptionId, currentWeek } = this.state
 
+        let icon;
+        switch (forecast.id) {
+            case 'sunny':
+                icon = Sunny
+                break
+            case 'rain':
+                icon = Rain
+                break
+            case 'overcast':
+                icon = Overcast
+                break
+            default:
+                icon = Sunny
+        }
+
         return (
             <Card style={{ width: '18rem' }}>
                 <Card.Header>{day.title}</Card.Header>
                 <Card.Body>
-                    <Card.Img variant="top" src={`../icons/${forecast.icon}`} />
+                    <Card.Img variant="top" src={icon} />
                     <Card.Title>{forecast.title}</Card.Title>
                     <ButtonGroup vertical style={{ width:"100%" }}>
                         {Object.keys(options).map((key) => (

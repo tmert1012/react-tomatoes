@@ -1,11 +1,26 @@
 
 ## React Tomatoes
 
-React version of Field Tomatoes, originally written in Kotlin.
+React version of the game Field Tomatoes, originally written in Kotlin.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Instructions
+Goal: To make it through the season without losing your crop!
 
-To run:
+Game play: Make a work schedule for each week, based on the weather forecast. Try and figure out the weather and work combo to make it to the end!
 
-### `yarn install`
-### `yarn start`
+Have fun, good luck!
+
+[Play it now!](http://web1.apuno.io/react-tomatoes/)
+
+###This project was build with:  
+  
+[Create React App](https://github.com/facebook/create-react-app)   
+[React Bootstrap](https://react-bootstrap.github.io/)  
+[Redux](https://react-redux.js.org/)
+
+To run locally:  
+git clone this project  
+`yarn install`  
+`yarn start`  
+
+

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Navbar } from 'react-bootstrap'
+import Tomato from "../icons/tomato.png"
 
 class Header extends Component {
 
@@ -9,7 +10,7 @@ class Header extends Component {
                 <Navbar.Brand>
                     <img
                         alt=""
-                        src="../icons/tomato.png"
+                        src={Tomato}
                         width="35"
                         height="35"
                         className="d-inline-block align-top"
