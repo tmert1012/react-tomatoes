@@ -8,7 +8,7 @@ class SeasonProgressBar extends Component {
         const { perc, weekId } = this.props
 
         return (
-            <div>
+            <div style={{ marginBottom: 10 }}>
                 { `Week: ${weekId}` }
                 <ProgressBar striped animated variant="success" now={perc} />
             </div>

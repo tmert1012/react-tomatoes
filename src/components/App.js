@@ -10,7 +10,7 @@ import Won from './Won'
 
 class App extends Component {
 
-    WEEKS_IN_SEASON = 2
+    WEEKS_IN_SEASON = 8
 
     componentDidMount() {
         this.props.dispatch(handleInitialData())
@@ -23,11 +23,10 @@ class App extends Component {
             const schedule = season[weekId].schedule
 
             // option selected for all seven days
-            const scheduleComplete =  Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '' ).length === 0
+            const scheduleComplete = Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '' ).length === 0
 
-            // check weather
+            // get weather
             const weather = Object.keys(days).map( dayId => schedule[dayId].weatherId)
-            console.log(weather)
 
             // overcast follows a day of rain, fail
             let overcastFollowsRain = false
@@ -35,7 +34,7 @@ class App extends Component {
                 if (weather[i] === 'rain' && weather[i+1] === 'overcast')
                     overcastFollowsRain = true
 
-            console.log(`weekId: ${weekId}, scheduleComplete: ${scheduleComplete}, overcastFollowsRain: ${overcastFollowsRain}`)
+            //console.log(`checkGameOver(): weekId: ${weekId}, scheduleComplete: ${scheduleComplete}, overcastFollowsRain: ${overcastFollowsRain}`)
 
             // game is lost
             if (scheduleComplete && overcastFollowsRain)
@@ -68,7 +67,9 @@ class App extends Component {
                     :
                     <div>
                         <Header />
-                        { component }
+                        <div style={{ padding:10 }}>
+                            { component }
+                        </div>
                     </div>
                 }
             </div>

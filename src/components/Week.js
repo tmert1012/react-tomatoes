@@ -15,16 +15,16 @@ class Week extends Component {
                     ? null
                     : (
                         <div>
-                        <SeasonProgressBar />
-                        <CardDeck>
-                            { Object.keys(schedule).map((dayId) => (
-                                <Day
-                                    dayId={dayId}
-                                    key={dayId}
-                                    weatherId={schedule[dayId].weatherId}
-                                />
-                            )) }
-                        </CardDeck>
+                            <SeasonProgressBar />
+                            <CardDeck>
+                                { Object.keys(schedule).map((dayId) => (
+                                    <Day
+                                        dayId={dayId}
+                                        key={dayId}
+                                        weatherId={schedule[dayId].weatherId}
+                                    />
+                                )) }
+                            </CardDeck>
                         </div>
                     )
                 }

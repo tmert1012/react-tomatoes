@@ -30,7 +30,7 @@ class Day extends Component {
                 <Card.Body>
                     <Card.Img variant="top" src={`../icons/${forecast.icon}`} />
                     <Card.Title>{forecast.title}</Card.Title>
-                    <ButtonGroup vertical>
+                    <ButtonGroup vertical style={{ width:"100%" }}>
                         {Object.keys(options).map((key) => (
                             <OverlayTrigger
                                 key={key}
