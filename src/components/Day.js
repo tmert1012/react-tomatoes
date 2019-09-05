@@ -54,15 +54,31 @@ class Day extends Component {
                                 key={key}
                                 delay={1000}
                                 overlay={<Tooltip>{options[key].description}</Tooltip>}>
-                                    <Button
-                                        block={true}
-                                        key={key}
-                                        onClick={(e) => this.optionSelected(e, options[key].id)}
-                                        active={ currentWeek !== weekId ? false : selectedOptionId === options[key].id }>
-                                        {options[key].title}
-                                    </Button>
+                                    <span style={{ width:'100%', paddingBottom: '2px' }}>
+                                        <Button
+                                            block={true}
+                                            key={key}
+                                            onClick={(e) => this.optionSelected(e, options[key].id)}
+                                            active={ currentWeek !== weekId ? false : selectedOptionId === options[key].id }>
+                                            {options[key].title}
+                                        </Button>
+                                    </span>
                             </OverlayTrigger>
                         ))}
+                        <OverlayTrigger
+                            key="noaction"
+                            delay={1000}
+                            overlay={<Tooltip>Take the day off!</Tooltip>}>
+                              <span style={{ width:'100%' }}>
+                                <Button
+                                    block={true}
+                                    key="noaction"
+                                    style={{ pointerEvents: 'none' }}
+                                    disabled>
+                                    Do Nothing
+                                </Button>
+                              </span>
+                        </OverlayTrigger>
                     </ButtonGroup>
                 </Card.Body>
             </Card>
