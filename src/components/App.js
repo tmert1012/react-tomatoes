@@ -26,7 +26,10 @@ class App extends Component {
             const scheduleComplete = Object.keys(schedule).filter( dayId => schedule[dayId].optionId === '' ).length === 0
 
             // get weather
-            const weather = Object.keys(days).map( dayId => schedule[dayId].weatherId)
+            const weather = Object.keys(days).map( dayId => schedule[dayId].weatherId )
+
+            // get work schedule
+            const options = Object.keys(days).map( dayId => schedule[dayId].optionId )
 
             // overcast follows a day of rain, fail
             let overcastFollowsRain = false
@@ -34,10 +37,16 @@ class App extends Component {
                 if (weather[i] === 'rain' && weather[i+1] === 'overcast')
                     overcastFollowsRain = true
 
-            //console.log(`checkGameOver(): weekId: ${weekId}, scheduleComplete: ${scheduleComplete}, overcastFollowsRain: ${overcastFollowsRain}`)
+            // over watered - four or more days of rain and/or watering
+            const overWatered = (
+                options.filter( optionId => optionId === 'water' ).length +
+                weather.filter( weatherId => weatherId === 'rain' ).length
+            ) >= 4
+
+            console.log(`checkGameOver(): weekId: ${weekId}, scheduleComplete: ${scheduleComplete}, overcastFollowsRain: ${overcastFollowsRain}, overWatered: ${overWatered}`)
 
             // game is lost
-            if (scheduleComplete && overcastFollowsRain)
+            if (scheduleComplete && (overcastFollowsRain || overWatered))
                 return true
 
             // continue to following week
