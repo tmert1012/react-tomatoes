@@ -3,6 +3,7 @@ import { CardDeck } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Day from './Day'
 import SeasonProgressBar from "./SeasonProgressBar"
+import History from './History'
 
 class Week extends Component {
 
@@ -25,6 +26,7 @@ class Week extends Component {
                                     />
                                 )) }
                             </CardDeck>
+                            <History />
                         </div>
                     )
                 }
