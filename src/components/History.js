@@ -2,23 +2,30 @@ import React, { Component } from 'react'
 import {Table} from 'react-bootstrap'
 import { connect } from 'react-redux'
 
-function Row({ day, weekId }) {
+function Row({ day, weekId, weather, options }) {
     return  <tr key={`${weekId}${day.dayId}`}>
         <td>{weekId}</td>
-        <td>{day.weatherId}</td>
-        <td>{day.optionId}</td>
+        <td>{weather[day.weatherId].title}</td>
+        <td>{ day.optionId ? options[day.optionId].title : '' }</td>
     </tr>
 }
 
 class History extends Component {
 
     render() {
-        const { season, loading } = this.props
+        const { season, loading, weather, currentWeekId, options } = this.props
+        let key = 0
 
         let rows =
-            Object.keys(season).flatMap((weekId) => (
+            Object.keys(season).filter( weekId => weekId <= currentWeekId ).flatMap((weekId) => (
                 Object.keys(season[weekId].schedule).map((dayId) => (
-                    <Row weekId={weekId} day={season[weekId].schedule[dayId]} />
+                    <Row
+                        weekId={weekId}
+                        day={season[weekId].schedule[dayId]}
+                        key={key++}
+                        weather={weather}
+                        options={options}
+                    />
                 ))
             ))
 
@@ -27,13 +34,14 @@ class History extends Component {
                 { loading
                     ? null
                     : (
-                        <div>
-                            <Table striped bordered hover variant="dark">
+                        <div style={{ width: '50%' }}>
+                            <div style={{ marginTop: 10, marginBottom: 5 }}>Work History</div>
+                            <Table striped bordered hover>
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Week #</th>
                                     <th>Weather</th>
-                                    <th>Option</th>
+                                    <th>Work</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,10 +58,13 @@ class History extends Component {
 
 }
 
-function mapStateToProps({ loadingBar, season }) {
+function mapStateToProps({ loadingBar, season, weather, currentWeek, options }) {
     return {
         loading: loadingBar.default === 1,
-        season
+        season,
+        weather,
+        currentWeekId: currentWeek.weekId,
+        options
     }
 }
 
