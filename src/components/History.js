@@ -58,9 +58,8 @@ class History extends Component {
 
 }
 
-function mapStateToProps({ loadingBar, season, weather, currentWeek, options }) {
+function mapStateToProps({ season, weather, currentWeek, options }) {
     return {
-        loading: loadingBar.default === 1,
         season,
         weather,
         currentWeekId: currentWeek.weekId,

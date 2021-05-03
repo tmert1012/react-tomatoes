@@ -10,7 +10,7 @@ Game play: Make a work schedule for each week, based on the weather forecast. Tr
 
 Have fun, good luck!
 
-[Play it now!](http://web1.apuno.io/react-tomatoes/)
+[Play it now!](http://cv.isidorefarm.com/react-tomatoes/)
 
 ### This project was build with:  
   
@@ -20,7 +20,7 @@ Have fun, good luck!
 
 To run locally:  
 git clone this project  
-`yarn install`  
-`yarn start`  
+`npm install`  
+`npm start`  
 
 

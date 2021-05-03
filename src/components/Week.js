@@ -37,9 +37,8 @@ class Week extends Component {
 
 }
 
-function mapStateToProps({ loadingBar, season, currentWeek }) {
+function mapStateToProps({ season, currentWeek }) {
     return {
-        loading: loadingBar.default === 1,
         schedule: season[currentWeek.weekId] ? season[currentWeek.weekId].schedule : {}
     }
 }

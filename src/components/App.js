@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from "../actions/shared"
-import LoadingBar from 'react-redux-loading'
 import Header from './Header'
 import Week from "./Week"
 import Failed from './Failed'
@@ -70,7 +69,6 @@ class App extends Component {
 
         return (
             <div>
-                <LoadingBar />
                 { loading
                     ? null
                     :
@@ -87,12 +85,11 @@ class App extends Component {
 
 }
 
-function mapStateToProps({ days, season, currentWeek, loadingBar }) {
+function mapStateToProps({ days, season, currentWeek }) {
     return {
         days,
         season,
         weekId: currentWeek.weekId,
-        loading: loadingBar.default === 1,
     }
 }
 
