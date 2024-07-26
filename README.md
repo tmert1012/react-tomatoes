@@ -10,17 +10,5 @@ Game play: Make a work schedule for each week, based on the weather forecast. Tr
 
 Have fun, good luck!
 
-[Play it now!](http://cv.isidorefarm.com/react-tomatoes/)
-
-### This project was build with:  
-  
-[Create React App](https://github.com/facebook/create-react-app)   
-[React Bootstrap](https://react-bootstrap.github.io/)  
-[Redux](https://react-redux.js.org/)
-
-To run locally:  
-git clone this project  
-`npm install`  
-`npm start`  
 
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { CardDeck } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Day from './Day'
 import SeasonProgressBar from "./SeasonProgressBar"
 import History from './History'
+import {Col, Container, Row} from "react-bootstrap"
 
 class Week extends Component {
 
@@ -17,15 +17,19 @@ class Week extends Component {
                     : (
                         <div>
                             <SeasonProgressBar />
-                            <CardDeck>
-                                { Object.keys(schedule).map((dayId) => (
-                                    <Day
-                                        dayId={dayId}
-                                        key={dayId}
-                                        weatherId={schedule[dayId].weatherId}
-                                    />
-                                )) }
-                            </CardDeck>
+                            <Container fluid>
+                                <Row>
+                                    { Object.keys(schedule).map((dayId) => (
+                                        <Col>
+                                            <Day
+                                                dayId={dayId}
+                                                key={dayId}
+                                                weatherId={schedule[dayId].weatherId}
+                                            />
+                                        </Col>
+                                    )) }
+                                </Row>
+                            </Container>
                             <History />
                         </div>
                     )
