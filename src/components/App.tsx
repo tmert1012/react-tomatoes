@@ -9,7 +9,7 @@ const App: FC = () => {
     const {rules} = useSeasonContext()
 
     let component: React.ReactNode
-    if (rules.isGameOver())
+    if (rules.gameIsLost())
         component = <Failed/>
     else if (rules.gameIsWon())
         component = <Won/>
