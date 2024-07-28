@@ -19,25 +19,34 @@ class Season {
     }
 
     /**
-     * getCurrentWeekId - get the current week id. finds the first week with no work options selected
-     * @returns number
-     */
-    getCurrentWeekId = (): number => {
-        const week = this.weeks.find(week => !week.isScheduleSet())
-        return week.id
-    }
-
-    /**
      * isSeasonComplete - check if all work options are selected for all days in all weeks
      */
     isSeasonComplete = (): boolean => {
         return this.weeks.every(week => week.isScheduleSet())
     }
 
+    /**
+     * getCurrentWeek - get the current week
+     * - if no weeks have a schedule set, return the first week
+     * - if all weeks have a schedule set, return the last week
+     * - otherwise, return the first week without a schedule set
+     */
     getCurrentWeek = (): Week => {
-        const weekId = this.getCurrentWeekId()
+        const week = this.weeks.find(week => !week.isScheduleSet())
+
+        // if undefined, return the last week in the season
+        const weekId = (week === undefined) ? this.maxAllowableWeeks : week.id
+
         return this.weeks.find(week => week.id === weekId)
     }
+
+    /**
+     * atLeastOneScheduleSet - checks all weeks to see if at least one schedule is set
+     */
+    atLeastOneScheduleSet = (): boolean => {
+        return this.weeks.some(week => week.isScheduleSet())
+    }
+
 }
 
 export default Season

@@ -13,7 +13,7 @@ import Rules from "../models/Rules.ts"
 /**
  * set the total number of weeks for a season
  */
-const WEEKS_IN_SEASON: number = 2
+const WEEKS_IN_SEASON: number = 8
 
 interface SeasonContextValue {
     season: Season,

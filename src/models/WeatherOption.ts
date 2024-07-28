@@ -9,10 +9,14 @@ interface WeatherOption {
     title: string,
 }
 
+export const SUNNY_WEATHER_OPTION: WeatherOption = {id: WeatherOptionId.SUNNY, title: 'Sunny'}
+export const RAIN_WEATHER_OPTION: WeatherOption = {id: WeatherOptionId.RAIN, title: 'Rain'}
+export const OVERCAST_WEATHER_OPTION: WeatherOption = {id: WeatherOptionId.OVERCAST, title: 'Overcast'}
+
 export const ALL_WEATHER_OPTIONS: Array<WeatherOption> = [
-    {id: WeatherOptionId.SUNNY, title: 'Sunny'},
-    {id: WeatherOptionId.RAIN, title: 'Rain'},
-    {id: WeatherOptionId.OVERCAST, title: 'Overcast'}
+    SUNNY_WEATHER_OPTION,
+    RAIN_WEATHER_OPTION,
+    OVERCAST_WEATHER_OPTION,
 ]
 
 export default WeatherOption
