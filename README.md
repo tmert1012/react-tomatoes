@@ -11,4 +11,7 @@ Make a work schedule for each week, based on the weather forecast. Try and figur
 
 Have fun, good luck!
 
+![play now](http://react-tomatoes.isidorefarm.com/)
+
+
 ![react tomatoes](screenshot.png)
