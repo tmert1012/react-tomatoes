@@ -6,12 +6,12 @@ import Won from './Won'
 import {useSeasonContext} from "../context/SeasonContext.tsx"
 
 const App: FC = () => {
-    const {rules} = useSeasonContext()
+    const {results} = useSeasonContext()
 
     let component: React.ReactNode
-    if (rules.gameIsLost())
+    if (results.gameIsLost)
         component = <Failed/>
-    else if (rules.gameIsWon())
+    else if (results.gameIsWon)
         component = <Won/>
     else
         component = <Week/>

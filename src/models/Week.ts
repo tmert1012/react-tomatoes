@@ -6,6 +6,10 @@ class Week {
     id: number
     workDays: WorkDay[]
 
+    /**
+     * create a new week and pick random weather for each day
+     * @param id - the week id
+     */
     constructor(id: number) {
         this.id = id
         this.workDays = ALL_DAYS.map(day =>
@@ -26,6 +30,14 @@ class Week {
      */
     isScheduleSet = (): boolean => {
         return this.workDays.filter(wd => wd.workOption === null).length === 0
+    }
+
+    /**
+     * isScheduleInProgress - check if any work options are set for any days in a week, but not all
+     */
+    isScheduleInProgress = (): boolean => {
+        const workOptionSetCount = this.workDays.filter(wd => wd.workOption !== null).length
+        return (workOptionSetCount > 0 && workOptionSetCount < 7)
     }
 }
 

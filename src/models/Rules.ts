@@ -13,20 +13,20 @@ class Rules {
     }
 
     /**
-     * overcastFollowsDayOfRain - Check if in any given week, the day after a rainy day is overcast.
+     * overcastFollowsDayOfRain - Check if in current week, the day after a rainy day is overcast.
      *
      * @returns boolean
      */
     overcastFollowsDayOfRain = (): boolean => {
-        return this.season.weeks.some(week => {
-            return week.workDays.some((day, index) => {
+        return this.season.getWeeksInSeasonSoFar().some(week =>
+            week.workDays.some((workDay, index) => {
                 // check for rain and exclude the last day of the week
-                if (day.forecast.id === WeatherOptionId.RAIN && index < 7) {
+                if (workDay.forecast.id === WeatherOptionId.RAIN && index < 7) {
                     return week.workDays[index + 1]?.forecast.id === WeatherOptionId.OVERCAST
                 }
                 return false
             })
-        })
+        )
     }
 
     /**
@@ -35,41 +35,18 @@ class Rules {
      * @returns boolean
      */
     isOverWatered = (): boolean => {
-        return this.season.weeks.some(week => {
-            const wateredDays = week.workDays.filter(day =>
-                day.workOption?.id === WorkOptionId.WATER
+        return this.season.getWeeksInSeasonSoFar().some(week => {
+            const wateredDays = week.workDays.filter(wd =>
+                wd.workOption?.id === WorkOptionId.WATER
             ).length
-            const rainyDays = week.workDays.filter(day =>
-                day.forecast.id === WeatherOptionId.RAIN
+            const rainyDays = week.workDays.filter(wd =>
+                wd.forecast.id === WeatherOptionId.RAIN
             ).length
 
-            return wateredDays + rainyDays >= 4
+            return (wateredDays + rainyDays) >= 4
         })
     }
 
-    /**
-     * gameIsLost - Check if the game is lost.
-     * - at least one schedule is set, we need some input from the user before checking if the game is lost.
-     *
-     * @returns boolean
-     */
-    gameIsLost = (): boolean => {
-        if (this.season.atLeastOneScheduleSet()) {
-            return (this.overcastFollowsDayOfRain() || this.isOverWatered())
-        }
-        return false
-    }
-
-    /**
-     * gameIsWon - Check if the game is won.
-     *
-     * NOTE: this doesn't include any checks if the gameIsLost, so this should be called after gameIsLost.
-     *
-     * @returns boolean
-     */
-    gameIsWon = (): boolean => {
-        return this.season.isSeasonComplete()
-    }
 }
 
 export default Rules

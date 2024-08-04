@@ -47,6 +47,20 @@ class Season {
         return this.weeks.some(week => week.isScheduleSet())
     }
 
+    /**
+     * findScheduleInProgress - find the first week with a schedule in progress
+     */
+    findScheduleInProgress = (): Week | undefined => {
+        return this.weeks.find(week => week.isScheduleInProgress())
+    }
+
+    /**
+     * getWeeksInSeasonSoFar - get the weeks of the season we've set work options, so far
+     */
+    getWeeksInSeasonSoFar = (): Week[] => {
+        return this.weeks.filter(week => week.isScheduleSet())
+    }
+
 }
 
 export default Season
