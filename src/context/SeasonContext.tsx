@@ -1,14 +1,9 @@
-/**
- * SeasonContext.tsx
- *
- * A context to build and store the current [Season].
- */
-
-import React, {createContext, FC, useState} from 'react'
+import React, {createContext, FC, useEffect, useState} from 'react'
 import Season from "../models/Season"
 import Week from "../models/Week"
 import WorkOption from "../models/WorkOption"
 import Rules from "../models/Rules.ts"
+import Status, {DEFAULT_STATUS_RESULTS, StatusResults} from "../models/Status.ts"
 
 /**
  * set the total number of weeks for a season
@@ -17,15 +12,20 @@ const WEEKS_IN_SEASON: number = 8
 
 interface SeasonContextValue {
     season: Season,
-    rules: Rules,
+    results: StatusResults,
     getCurrentWeek: () => Week
     setWorkOption: (dayId: number, workOption: WorkOption) => void,
     resetSeason: () => void
 }
 
+/**
+ * SeasonContext.tsx
+ *
+ * A context to build and store the current [Season].
+ */
 const SeasonContext = createContext<SeasonContextValue>({
     season: null,
-    rules: null,
+    results: null,
     getCurrentWeek: () => null,
     setWorkOption: () => {},
     resetSeason: () => null
@@ -37,7 +37,21 @@ export const SeasonContextProvider: FC<{
     children
 }) => {
     const [season, setSeason] = useState<Season>(new Season(WEEKS_IN_SEASON))
-    const rules = new Rules(season)
+    const [results, setResults] = useState<StatusResults>(DEFAULT_STATUS_RESULTS)
+
+    // reset the results when the season changes
+    useEffect(
+        () => {
+            const rules = new Rules(season)
+            setResults(new Status({
+                overcastFollowsDayOfRain: rules.overcastFollowsDayOfRain(),
+                isOverWatered: rules.isOverWatered(),
+                atLeastOneScheduleSet: season.atLeastOneScheduleSet(),
+                isSeasonComplete: season.isSeasonComplete()
+            }).getStatusResults())
+        },
+        [season]
+    )
 
     const setWorkOption = (dayId: number, workOption: WorkOption) => {
         const seasonCopy = {...season}
@@ -53,14 +67,15 @@ export const SeasonContextProvider: FC<{
      * resetSeason - reset the season to a new season
      */
     const resetSeason = () => {
-        setSeason(new Season(WEEKS_IN_SEASON))
+        const newSeason = new Season(WEEKS_IN_SEASON)
+        setSeason(newSeason)
     }
 
     return (
         <SeasonContext.Provider
             value={{
                 season: season,
-                rules: rules,
+                results: results,
                 getCurrentWeek: season.getCurrentWeek,
                 setWorkOption: setWorkOption,
                 resetSeason: resetSeason

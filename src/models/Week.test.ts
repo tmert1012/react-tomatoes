@@ -1,5 +1,5 @@
 import Week from "./Week.ts"
-import {ALL_WORK_OPTIONS} from "../models/WorkOption.ts"
+import {ALL_WORK_OPTIONS, SPRAY_WORK_OPTION} from "../models/WorkOption.ts"
 
 test('week constructor works as expected', () => {
     const weekId = 1
@@ -58,4 +58,36 @@ test('isScheduleSet works with some options set', () => {
 
     // should now be false
     expect(week.isScheduleSet()).toBe(false)
+})
+
+test('isScheduleInProgress returns false with no options set', () => {
+    const week = new Week(1)
+
+    // default should be false
+    expect(week.isScheduleInProgress()).toBe(false)
+})
+
+test('isScheduleInProgress returns false with all options set', () => {
+    const week = new Week(1)
+
+    // set all work options to something
+    week.workDays = week.workDays.map(wd => (
+        {
+            ...wd,
+            workOption: SPRAY_WORK_OPTION
+        }
+    ))
+
+    // should now be true
+    expect(week.isScheduleInProgress()).toBe(false)
+})
+
+test('isScheduleInProgress returns true with some options set', () => {
+    const week = new Week(1)
+
+    // set first work day to something
+    week.workDays[0].workOption = SPRAY_WORK_OPTION
+
+    // should now be true
+    expect(week.isScheduleInProgress()).toBe(true)
 })
