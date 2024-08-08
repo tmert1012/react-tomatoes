@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import { Card, Button, Container, Row, Col } from 'react-bootstrap'
-import Tomato from '../icons/tomato.png'
-import {useSeasonContext} from "../context/SeasonContext"
+import Tomato from 'src/icons/tomato.png'
+import {useSeasonContext} from "src/context/SeasonContext"
 
 const Won: FC = () => {
     const {resetSeason} = useSeasonContext()

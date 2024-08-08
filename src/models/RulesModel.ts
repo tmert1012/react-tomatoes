@@ -1,14 +1,14 @@
-import Season from "../models/Season.ts"
-import {WeatherOptionId} from "../models/WeatherOption.ts"
-import {WorkOptionId} from "../models/WorkOption.ts"
+import SeasonModel from "src/models/SeasonModel.ts"
+import {WeatherOptionId} from "src/models/ForecastModel.ts"
+import {WorkOptionId} from "src/models/WorkOptionModel.ts"
 
 /**
- * Rules - game rules
+ * RulesModel - game rules
  */
-class Rules {
-    season: Season
+class RulesModel {
+    season: SeasonModel
 
-    constructor(season: Season) {
+    constructor(season: SeasonModel) {
         this.season = season
     }
 
@@ -49,4 +49,4 @@ class Rules {
 
 }
 
-export default Rules
+export default RulesModel

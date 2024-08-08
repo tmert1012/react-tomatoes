@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import {Table} from 'react-bootstrap'
-import {useSeasonContext} from "../context/SeasonContext"
-import WorkDay from "../models/WorkDay.ts"
+import {useSeasonContext} from "src/context/SeasonContext"
+import WorkDayModel from "src/models/WorkDayModel.ts"
 
 const History: FC = () => {
     const {season, getCurrentWeek} = useSeasonContext()
@@ -41,7 +41,7 @@ const History: FC = () => {
 
 const Row: FC<{
     weekId: number,
-    workDay: WorkDay
+    workDay: WorkDayModel
 }> = ({
     weekId,
     workDay

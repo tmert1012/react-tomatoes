@@ -1,21 +1,27 @@
+import WeekModel from "src/models/WeekModel.ts"
+import {SeasonApiObject} from "src/api_objects/SeasonApiObject.ts"
+
 /**
- * Season
+ * SeasonModel
  *
  * Contains all the base logic around a season, used directly by [SeasonContext]
  */
-import Week from "./Week.ts"
-
-class Season {
+class SeasonModel {
     maxAllowableWeeks: number
-    weeks: Week[]
+    weeks: WeekModel[]
 
-    constructor(maxAllowableWeeks: number) {
+    /**
+     * constructor
+     * create a new season with a max number of allowable weeks and a list of weeks
+     *
+     * @param maxAllowableWeeks
+     * @param weeks - default is an empty array. if no weeks are provided, they will be created
+     */
+    constructor(maxAllowableWeeks: number, weeks: WeekModel[] = []) {
         this.maxAllowableWeeks = maxAllowableWeeks
-        this.weeks = []
-
-        for (let i = 1; i <= this.maxAllowableWeeks; i++) {
-            this.weeks.push(new Week(i))
-        }
+        this.weeks = weeks.length > 0
+            ? weeks
+            : Array.from({length: maxAllowableWeeks}, (_, i) => new WeekModel(i + 1))
     }
 
     /**
@@ -31,7 +37,7 @@ class Season {
      * - if all weeks have a schedule set, return the last week
      * - otherwise, return the first week without a schedule set
      */
-    getCurrentWeek = (): Week => {
+    getCurrentWeek = (): WeekModel => {
         const week = this.weeks.find(week => !week.isScheduleSet())
 
         // if undefined, return the last week in the season
@@ -50,17 +56,31 @@ class Season {
     /**
      * findScheduleInProgress - find the first week with a schedule in progress
      */
-    findScheduleInProgress = (): Week | undefined => {
+    findScheduleInProgress = (): WeekModel | undefined => {
         return this.weeks.find(week => week.isScheduleInProgress())
     }
 
     /**
      * getWeeksInSeasonSoFar - get the weeks of the season we've set work options, so far
      */
-    getWeeksInSeasonSoFar = (): Week[] => {
+    getWeeksInSeasonSoFar = (): WeekModel[] => {
         return this.weeks.filter(week => week.isScheduleSet())
+    }
+
+    toApiObject(): SeasonApiObject {
+        return {
+            maxAllowableWeeks: this.maxAllowableWeeks,
+            weeks: this.weeks.map(week => week.toApiObject())
+        }
+    }
+
+    copy(): SeasonModel {
+        return new SeasonModel(
+            this.maxAllowableWeeks,
+            this.weeks.map(week => week.copy())
+        )
     }
 
 }
 
-export default Season
+export default SeasonModel

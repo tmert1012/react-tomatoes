@@ -1,7 +1,7 @@
 import React, {FC} from 'react'
 import { Card, Button, Container, Row, Col } from 'react-bootstrap'
-import DeadPlant from '../icons/dead-plant.png'
-import {useSeasonContext} from "../context/SeasonContext"
+import DeadPlant from 'src/icons/dead-plant.png'
+import {useSeasonContext} from "src/context/SeasonContext"
 
 const Failed: FC = () => {
     const {resetSeason} = useSeasonContext()
