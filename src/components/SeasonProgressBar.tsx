@@ -1,6 +1,6 @@
 import React, {FC} from 'react'
 import { ProgressBar } from 'react-bootstrap'
-import {useSeasonContext} from "../context/SeasonContext"
+import {useSeasonContext} from "src/context/SeasonContext"
 
 const SeasonProgressBar: FC = () => {
     const {season, getCurrentWeek} = useSeasonContext()

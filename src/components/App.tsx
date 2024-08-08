@@ -1,9 +1,9 @@
 import React, {FC} from 'react'
-import Header from './Header'
-import Week from "./Week"
-import Failed from './Failed'
-import Won from './Won'
-import {useSeasonContext} from "../context/SeasonContext.tsx"
+import Header from 'src/components/Header'
+import Week from "src/components/Week"
+import Failed from 'src/components/Failed'
+import Won from 'src/components/Won'
+import {useSeasonContext} from "src/context/SeasonContext.tsx"
 
 const App: FC = () => {
     const {results} = useSeasonContext()

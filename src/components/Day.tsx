@@ -1,16 +1,15 @@
 import React, {FC} from 'react'
 import { Card, OverlayTrigger, Tooltip, Button, ButtonGroup } from 'react-bootstrap'
-import Overcast from '../icons/wi-cloudy.svg'
-import Sunny from '../icons/wi-day-sunny.svg'
-import Rain from '../icons/wi-day-rain.svg'
-import {useSeasonContext} from "../context/SeasonContext"
-import WorkDay from "../models/WorkDay.ts"
-import {WeatherOptionId} from "../models/WeatherOption.ts"
-import {ALL_WORK_OPTIONS} from "../models/WorkOption.ts"
-
+import Overcast from 'src/icons/wi-cloudy.svg'
+import Sunny from 'src/icons/wi-day-sunny.svg'
+import Rain from 'src/icons/wi-day-rain.svg'
+import {useSeasonContext} from "src/context/SeasonContext"
+import WorkDayModel from "src/models/WorkDayModel.ts"
+import {WeatherOptionId} from "src/models/ForecastModel.ts"
+import {ALL_WORK_OPTIONS} from "src/models/WorkOptionModel.ts"
 
 const Day: FC<{
-    workDay: WorkDay
+    workDay: WorkDayModel
 }> = ({
     workDay
 }) => {

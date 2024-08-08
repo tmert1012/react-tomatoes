@@ -9,7 +9,7 @@ export interface StatusParams {
 }
 
 /**
- * StatusResults - results from the Status class, convenience for storing the results in state
+ * StatusResults - results from the StatusModel class, convenience for storing the results in state
  */
 export interface StatusResults extends StatusParams {
     gameIsLost: boolean
@@ -29,9 +29,9 @@ export const DEFAULT_STATUS_RESULTS: StatusResults = {
 }
 
 /**
- * Status - class to check the status of the game
+ * StatusModel - class to check the status of the game
  */
-class Status {
+class StatusModel {
     params: StatusParams
 
     constructor(params: StatusParams) {
@@ -77,4 +77,4 @@ class Status {
     }
 }
 
-export default Status
+export default StatusModel

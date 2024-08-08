@@ -1,6 +1,6 @@
 import React, {FC} from 'react'
 import { Navbar } from 'react-bootstrap'
-import Tomato from "../icons/tomato.png"
+import Tomato from "src/icons/tomato.png"
 
 const Header: FC = () => {
     return (

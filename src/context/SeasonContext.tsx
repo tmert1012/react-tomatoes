@@ -1,9 +1,9 @@
 import React, {createContext, FC, useEffect, useState} from 'react'
-import Season from "../models/Season"
-import Week from "../models/Week"
-import WorkOption from "../models/WorkOption"
-import Rules from "../models/Rules.ts"
-import Status, {DEFAULT_STATUS_RESULTS, StatusResults} from "../models/Status.ts"
+import SeasonModel from "src/models/SeasonModel.ts"
+import WeekModel from "src/models/WeekModel.ts"
+import WorkOptionModel from "src/models/WorkOptionModel.ts"
+import RulesModel from "src/models/RulesModel.ts"
+import StatusModel, {DEFAULT_STATUS_RESULTS, StatusResults} from "src/models/StatusModel.ts"
 
 /**
  * set the total number of weeks for a season
@@ -11,17 +11,17 @@ import Status, {DEFAULT_STATUS_RESULTS, StatusResults} from "../models/Status.ts
 const WEEKS_IN_SEASON: number = 8
 
 interface SeasonContextValue {
-    season: Season,
+    season: SeasonModel,
     results: StatusResults,
-    getCurrentWeek: () => Week
-    setWorkOption: (dayId: number, workOption: WorkOption) => void,
+    getCurrentWeek: () => WeekModel
+    setWorkOption: (dayId: number, workOption: WorkOptionModel) => void,
     resetSeason: () => void
 }
 
 /**
  * SeasonContext.tsx
  *
- * A context to build and store the current [Season].
+ * A context to build and store the current [SeasonModel].
  */
 const SeasonContext = createContext<SeasonContextValue>({
     season: null,
@@ -36,14 +36,14 @@ export const SeasonContextProvider: FC<{
 }> = ({
     children
 }) => {
-    const [season, setSeason] = useState<Season>(new Season(WEEKS_IN_SEASON))
+    const [season, setSeason] = useState<SeasonModel>(new SeasonModel(WEEKS_IN_SEASON))
     const [results, setResults] = useState<StatusResults>(DEFAULT_STATUS_RESULTS)
 
     // reset the results when the season changes
     useEffect(
         () => {
-            const rules = new Rules(season)
-            setResults(new Status({
+            const rules = new RulesModel(season)
+            setResults(new StatusModel({
                 overcastFollowsDayOfRain: rules.overcastFollowsDayOfRain(),
                 isOverWatered: rules.isOverWatered(),
                 atLeastOneScheduleSet: season.atLeastOneScheduleSet(),
@@ -53,12 +53,12 @@ export const SeasonContextProvider: FC<{
         [season]
     )
 
-    const setWorkOption = (dayId: number, workOption: WorkOption) => {
-        const seasonCopy = {...season}
+    const setWorkOption = (dayId: number, workOption: WorkOptionModel) => {
+        const seasonCopy = season.copy()
 
         const week = seasonCopy.getCurrentWeek()
         const workDay = week.getWorkDay(dayId)
-        workDay.workOption = workOption
+        workDay.setWorkOption(workOption)
 
         setSeason(seasonCopy)
     }
@@ -67,7 +67,7 @@ export const SeasonContextProvider: FC<{
      * resetSeason - reset the season to a new season
      */
     const resetSeason = () => {
-        const newSeason = new Season(WEEKS_IN_SEASON)
+        const newSeason = new SeasonModel(WEEKS_IN_SEASON)
         setSeason(newSeason)
     }
 

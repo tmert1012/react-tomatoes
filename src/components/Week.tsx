@@ -1,9 +1,9 @@
 import React, {FC} from 'react'
-import Day from './Day'
-import SeasonProgressBar from "./SeasonProgressBar"
-import History from './History'
+import Day from 'src/components/Day'
+import SeasonProgressBar from "src/components/SeasonProgressBar"
+import History from 'src/components/History'
 import {Col, Container, Row} from "react-bootstrap"
-import {useSeasonContext} from "../context/SeasonContext"
+import {useSeasonContext} from "src/context/SeasonContext"
 
 const Week: FC = () => {
     const {getCurrentWeek} = useSeasonContext()
