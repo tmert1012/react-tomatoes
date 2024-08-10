@@ -226,6 +226,7 @@ test('toApiObject works as expected', () => {
     )
 
     const expected: SeasonApiObject = {
+        id: model.id,
         maxAllowableWeeks: 1,
         weeks: [{
             id: 1,
@@ -247,6 +248,8 @@ test('toApiObject works as expected', () => {
 test('copy works as expected', () => {
     const model = new SeasonModel(1)
     const copy= model.copy()
+    // have to manually set the generated id
+    copy.id = model.id
 
     expect(JSON.stringify(copy)).toEqual(JSON.stringify(model))
     expect(copy).not.toBe(model)

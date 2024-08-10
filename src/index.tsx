@@ -1,13 +1,16 @@
 import React from 'react'
-import App from './components/App'
+import App from 'src/components/App'
 import {SeasonContextProvider} from "./context/SeasonContext"
 import {createRoot} from "react-dom/client"
+import {HistoryIndexedDbContextProvider} from "src/context/HistoryIndexedDbContext.tsx"
 
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(
-    <SeasonContextProvider>
-        <App />
-    </SeasonContextProvider>
+    <HistoryIndexedDbContextProvider>
+        <SeasonContextProvider>
+            <App />
+        </SeasonContextProvider>
+    </HistoryIndexedDbContextProvider>
 )
 

@@ -7,6 +7,7 @@ import {SeasonApiObject} from "src/api_objects/SeasonApiObject.ts"
  * Contains all the base logic around a season, used directly by [SeasonContext]
  */
 class SeasonModel {
+    id: string
     maxAllowableWeeks: number
     weeks: WeekModel[]
 
@@ -18,10 +19,25 @@ class SeasonModel {
      * @param weeks - default is an empty array. if no weeks are provided, they will be created
      */
     constructor(maxAllowableWeeks: number, weeks: WeekModel[] = []) {
+        this.id = this.uuid()
         this.maxAllowableWeeks = maxAllowableWeeks
         this.weeks = weeks.length > 0
             ? weeks
             : Array.from({length: maxAllowableWeeks}, (_, i) => new WeekModel(i + 1))
+    }
+
+    /**
+     * uuid - generate a unique id
+     *
+     * the common uuid packages out there either break in jest or break in the browser. this is good enough.
+     */
+    private uuid = () => {
+        return (
+            (new Date()).getTime().toString(36) + '-' +
+            Math.random().toString(8).slice(2) + '-' +
+            (new Date()).getTime().toString(10) + '-' +
+            Math.random().toString(36).slice(2)
+        )
     }
 
     /**
@@ -69,6 +85,7 @@ class SeasonModel {
 
     toApiObject(): SeasonApiObject {
         return {
+            id: this.id,
             maxAllowableWeeks: this.maxAllowableWeeks,
             weeks: this.weeks.map(week => week.toApiObject())
         }

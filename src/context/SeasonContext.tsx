@@ -3,7 +3,8 @@ import SeasonModel from "src/models/SeasonModel.ts"
 import WeekModel from "src/models/WeekModel.ts"
 import WorkOptionModel from "src/models/WorkOptionModel.ts"
 import RulesModel from "src/models/RulesModel.ts"
-import StatusModel, {DEFAULT_STATUS_RESULTS, StatusResults} from "src/models/StatusModel.ts"
+import StatusModel from "src/models/StatusModel.ts"
+import {StatusResultsApiObject, DEFAULT_STATUS_RESULTS} from "src/api_objects/StatusApiObjects.ts"
 
 /**
  * set the total number of weeks for a season
@@ -12,7 +13,7 @@ const WEEKS_IN_SEASON: number = 8
 
 interface SeasonContextValue {
     season: SeasonModel,
-    results: StatusResults,
+    results: StatusResultsApiObject,
     getCurrentWeek: () => WeekModel
     setWorkOption: (dayId: number, workOption: WorkOptionModel) => void,
     resetSeason: () => void
@@ -37,13 +38,14 @@ export const SeasonContextProvider: FC<{
     children
 }) => {
     const [season, setSeason] = useState<SeasonModel>(new SeasonModel(WEEKS_IN_SEASON))
-    const [results, setResults] = useState<StatusResults>(DEFAULT_STATUS_RESULTS)
+    const [results, setResults] = useState<StatusResultsApiObject>(DEFAULT_STATUS_RESULTS)
 
     // reset the results when the season changes
     useEffect(
         () => {
             const rules = new RulesModel(season)
             setResults(new StatusModel({
+                currentWeek: season.getCurrentWeek().id,
                 overcastFollowsDayOfRain: rules.overcastFollowsDayOfRain(),
                 isOverWatered: rules.isOverWatered(),
                 atLeastOneScheduleSet: season.atLeastOneScheduleSet(),
@@ -67,8 +69,8 @@ export const SeasonContextProvider: FC<{
      * resetSeason - reset the season to a new season
      */
     const resetSeason = () => {
-        const newSeason = new SeasonModel(WEEKS_IN_SEASON)
-        setSeason(newSeason)
+        setResults(DEFAULT_STATUS_RESULTS)
+        setSeason(new SeasonModel(WEEKS_IN_SEASON))
     }
 
     return (

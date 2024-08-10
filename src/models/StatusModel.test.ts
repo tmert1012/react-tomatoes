@@ -2,6 +2,7 @@ import StatusModel from "./StatusModel.ts"
 
 test('gameIsLost returns false when no conditions are met', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: false,
         isOverWatered: false,
         atLeastOneScheduleSet: false,
@@ -12,6 +13,7 @@ test('gameIsLost returns false when no conditions are met', () => {
 
 test('gameIsLost returns false when atLeastOneScheduleSet is false', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: true,
         isOverWatered: true,
         atLeastOneScheduleSet: false,
@@ -22,6 +24,7 @@ test('gameIsLost returns false when atLeastOneScheduleSet is false', () => {
 
 test('gameIsLost returns false whe no conditions are met and season is complete', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: false,
         isOverWatered: false,
         atLeastOneScheduleSet: true,
@@ -32,6 +35,7 @@ test('gameIsLost returns false whe no conditions are met and season is complete'
 
 test('gameIsLost returns true when overcastFollowsDayOfRain is true', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: true,
         isOverWatered: false,
         atLeastOneScheduleSet: true,
@@ -42,6 +46,7 @@ test('gameIsLost returns true when overcastFollowsDayOfRain is true', () => {
 
 test('gameIsLost returns true when isOverWatered is true', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: false,
         isOverWatered: true,
         atLeastOneScheduleSet: true,
@@ -52,6 +57,7 @@ test('gameIsLost returns true when isOverWatered is true', () => {
 
 test('gameIsLost returns true when overcastFollowsDayOfRain and isOverWatered are true', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: true,
         isOverWatered: true,
         atLeastOneScheduleSet: true,
@@ -62,6 +68,7 @@ test('gameIsLost returns true when overcastFollowsDayOfRain and isOverWatered ar
 
 test('gameIsLost returns true when condition is met and season is complete', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: true,
         isOverWatered: true,
         atLeastOneScheduleSet: true,
@@ -72,6 +79,7 @@ test('gameIsLost returns true when condition is met and season is complete', () 
 
 test('gameIsWon returns false when no conditions are met', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: false,
         isOverWatered: false,
         atLeastOneScheduleSet: false,
@@ -82,6 +90,7 @@ test('gameIsWon returns false when no conditions are met', () => {
 
 test('gameIsWon returns true when season is complete', () => {
     const status = new StatusModel({
+        currentWeek: 1,
         overcastFollowsDayOfRain: false,
         isOverWatered: false,
         atLeastOneScheduleSet: false,
