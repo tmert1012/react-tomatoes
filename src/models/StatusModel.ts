@@ -1,40 +1,12 @@
-/**
- * StatusParams - convenience for testing the status object without recreating season and rules objects
- */
-export interface StatusParams {
-    overcastFollowsDayOfRain: boolean
-    isOverWatered: boolean
-    atLeastOneScheduleSet: boolean
-    isSeasonComplete: boolean
-}
-
-/**
- * StatusResults - results from the StatusModel class, convenience for storing the results in state
- */
-export interface StatusResults extends StatusParams {
-    gameIsLost: boolean
-    gameIsWon: boolean
-}
-
-/**
- * default StatusResults for the context when the app starts
- */
-export const DEFAULT_STATUS_RESULTS: StatusResults = {
-    overcastFollowsDayOfRain: false,
-    isOverWatered: false,
-    atLeastOneScheduleSet: false,
-    isSeasonComplete: false,
-    gameIsLost: false,
-    gameIsWon: false
-}
+import {StatusParamsApiObject, StatusResultsApiObject} from "src/api_objects/StatusApiObjects.ts"
 
 /**
  * StatusModel - class to check the status of the game
  */
 class StatusModel {
-    params: StatusParams
+    params: StatusParamsApiObject
 
-    constructor(params: StatusParams) {
+    constructor(params: StatusParamsApiObject) {
         this.params = params
     }
 
@@ -65,8 +37,9 @@ class StatusModel {
     /**
      * getStatusResults - get the game results in a convenient object to store in state
      */
-    getStatusResults = (): StatusResults => {
+    getStatusResults = (): StatusResultsApiObject => {
         return {
+            currentWeek: this.params.currentWeek,
             overcastFollowsDayOfRain: this.params.overcastFollowsDayOfRain,
             isOverWatered: this.params.isOverWatered,
             atLeastOneScheduleSet: this.params.atLeastOneScheduleSet,
